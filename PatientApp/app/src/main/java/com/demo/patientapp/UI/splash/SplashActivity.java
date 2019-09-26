@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.demo.patientapp.R;
 import com.demo.patientapp.UI.viewmodel.AuthRequestViewModel;
 import com.demo.patientapp.common.utils.PrefUtils;
+import com.demo.patientapp.mapper.ViewModelToDataModelMapper;
 import com.demo.patientapp.network.APIClient;
 import com.demo.patientapp.network.LiveNetworkMonitor;
 import com.demo.patientapp.UI.activity.PatientListActivity;
@@ -25,8 +26,9 @@ public class SplashActivity extends AppCompatActivity implements SplashView{
             getSupportActionBar().hide();
         }
 
+        ViewModelToDataModelMapper viewModelToDataModelMapper = new ViewModelToDataModelMapper();
         APIClient apiClient = APIClient.getInstance(new LiveNetworkMonitor(this));
-        mSplashPresenter = new SplashPresenter(apiClient);
+        mSplashPresenter = new SplashPresenter(apiClient, viewModelToDataModelMapper);
         mSplashPresenter.bind(this);
 
         mSplashPresenter.getAccessToken(getRequestModel());

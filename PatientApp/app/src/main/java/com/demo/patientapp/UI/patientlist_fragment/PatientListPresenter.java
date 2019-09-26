@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import com.demo.patientapp.UI.base.BasePresenter;
 import com.demo.patientapp.UI.viewmodel.PatientListViewModel;
 import com.demo.patientapp.UI.viewmodel.PatientRequestViewModel;
+import com.demo.patientapp.common.Constants;
 import com.demo.patientapp.error.Error;
 import com.demo.patientapp.error.ErrorHandler;
 import com.demo.patientapp.error.ErrorProvider;
@@ -23,9 +24,12 @@ public class PatientListPresenter extends BasePresenter<PatientListView> {
     private ViewModelToDataModelMapper mViewModelToDataModelMapper;
     private ErrorHandler mErrorHandler;
 
-    public PatientListPresenter(APIClient apiClient, ErrorProvider errorProvider) {
+    public PatientListPresenter(APIClient apiClient, ErrorProvider errorProvider
+                                , ViewModelToDataModelMapper viewModelToDataModelMapper
+                                , DataModelToViewModelMapper dataToViewModelMapper) {
         mApiClient = apiClient;
-        mDataToViewModelMapper = new DataModelToViewModelMapper();
+        mDataToViewModelMapper = dataToViewModelMapper;
+        mViewModelToDataModelMapper = viewModelToDataModelMapper;
         mErrorHandler = new ErrorHandler(errorProvider);
     }
 
@@ -40,7 +44,7 @@ public class PatientListPresenter extends BasePresenter<PatientListView> {
                         PatientListViewModel patientListViewModel = mDataToViewModelMapper.mapPatientListDataToViewModel(result);
                         if(patientListViewModel != null) {
                             view.showPatientData(patientListViewModel.getPatientList());
-                            if(patientListViewModel.getPatientList().size() == 50) {
+                            if(patientListViewModel.getPatientList().size() == Constants.ITEM_PER_PAGE) {
                                 view.addLoadingToAdapter();
                             } else {
                                 view.foundLastPage();

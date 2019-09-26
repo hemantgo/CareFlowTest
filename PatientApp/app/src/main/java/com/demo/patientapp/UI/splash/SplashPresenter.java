@@ -16,8 +16,9 @@ public class SplashPresenter extends BasePresenter<SplashView> {
     private APIClient mApiClient;
     private ViewModelToDataModelMapper mViewModelToDataModelMapper;
 
-    public SplashPresenter(APIClient apiClient) {
+    public SplashPresenter(APIClient apiClient, ViewModelToDataModelMapper viewModelToDataModelMapper) {
         mApiClient = apiClient;
+        mViewModelToDataModelMapper = viewModelToDataModelMapper;
     }
 
     @SuppressLint("CheckResult")
@@ -28,7 +29,7 @@ public class SplashPresenter extends BasePresenter<SplashView> {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> {
                     if(view != null) {
-                        if(result != null && result.headers() != null) {
+                        if(result != null) {
                             String token = result.headers().get("access_token");
                             // Not storing other values as not handling it for now.
                             view.storeToken(token);

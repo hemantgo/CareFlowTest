@@ -22,6 +22,8 @@ import com.demo.patientapp.common.Constants;
 import com.demo.patientapp.common.utils.PaginationListener;
 import com.demo.patientapp.common.utils.PrefUtils;
 import com.demo.patientapp.error.ErrorProvider;
+import com.demo.patientapp.mapper.DataModelToViewModelMapper;
+import com.demo.patientapp.mapper.ViewModelToDataModelMapper;
 import com.demo.patientapp.network.APIClient;
 import com.demo.patientapp.network.LiveNetworkMonitor;
 
@@ -65,9 +67,12 @@ public class PatientListFragment extends BaseFragment implements PatientListView
         // set scroll listener to recyclerView so that we can do pagination
         setScrollListener(layoutManager);
 
+
+        DataModelToViewModelMapper dataModelToViewModelMapper = new DataModelToViewModelMapper();
+        ViewModelToDataModelMapper viewModelToDataModelMapper = new ViewModelToDataModelMapper();
         APIClient apiClient = APIClient.getInstance(new LiveNetworkMonitor(getActivity()));
         ErrorProvider errorProvider = new ErrorProvider(getActivity());
-        mPatientListPresenter = new PatientListPresenter(apiClient, errorProvider);
+        mPatientListPresenter = new PatientListPresenter(apiClient, errorProvider, viewModelToDataModelMapper, dataModelToViewModelMapper);
 
         loadInitial();
         return mRootView;
