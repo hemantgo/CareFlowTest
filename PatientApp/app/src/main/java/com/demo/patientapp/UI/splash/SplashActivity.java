@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.demo.patientapp.R;
+import com.demo.patientapp.UI.viewmodel.AuthRequestViewModel;
 import com.demo.patientapp.common.utils.PrefUtils;
 import com.demo.patientapp.network.APIClient;
 import com.demo.patientapp.network.LiveNetworkMonitor;
@@ -28,15 +29,17 @@ public class SplashActivity extends AppCompatActivity implements SplashView{
         mSplashPresenter = new SplashPresenter(apiClient);
         mSplashPresenter.bind(this);
 
-        mSplashPresenter.getAccessToken();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(SplashActivity.this, PatientListActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        }, 2000);
+        mSplashPresenter.getAccessToken(getRequestModel());
+    }
+
+    private AuthRequestViewModel getRequestModel() {
+        AuthRequestViewModel authRequestViewModel = new AuthRequestViewModel();
+        authRequestViewModel.setEmailAddress("careflowinterviewcandidate@gmail.com");
+        authRequestViewModel.setPassword("Car3F!0wT3st");
+        authRequestViewModel.setClient_Id("DocComMobile");
+        authRequestViewModel.setRedirect_url("https://www.careflowconnect.com");
+        authRequestViewModel.setResponse_type("token");
+        return authRequestViewModel;
     }
 
     @Override

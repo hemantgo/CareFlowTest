@@ -1,6 +1,11 @@
 package com.demo.patientapp.network;
 
+import com.demo.patientapp.datamodel.AuthRequestDataModel;
+import com.demo.patientapp.datamodel.PatientListDataModel;
+import com.demo.patientapp.datamodel.PatientRequestModel;
+
 import io.reactivex.Observable;
+import retrofit2.Response;
 
 public class PatientRespository implements IAPIService {
 
@@ -11,7 +16,12 @@ public class PatientRespository implements IAPIService {
     }
 
     @Override
-    public Observable<String> fetchToken(String emailId, String password, String clientId, String redirectUrl, String responseType) {
-        return mAPIClient.create(APIService.class).fetchToken(emailId, password, clientId, redirectUrl, responseType);
+    public Observable<Response> fetchToken(AuthRequestDataModel authRequestDataModel) {
+        return mAPIClient.create(APIService.class).fetchToken(authRequestDataModel);
+    }
+
+    @Override
+    public Observable<PatientListDataModel> fetchPatientInfo(int teamId, PatientRequestModel requestModel) {
+        return mAPIClient.create(APIService.class).fetchPatientInfo(teamId, requestModel);
     }
 }
