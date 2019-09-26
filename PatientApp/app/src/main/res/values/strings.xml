@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">PatientApp</string>
+    <string name="splash_text">SPLASH SCREEN!!!</string>
+
+
+    // error, Just kept dummy strings
+
+    <string name="error_generic">error_generic</string>
+    <string name="error_socket_timeout">error_socket_timeout</string>
+    <string name="error_ssl_error">error_ssl_error</string>
+    <string name="error_http_generic">error_http_generic</string>
+    <string name="error_http_forbidden">error_http_forbidden</string>
+    <string name="error_http_bad_request">error_http_bad_request</string>
+    <string name="error_http_authorization">error_http_authorization</string>
+    <string name="error_server_error">error_server_error</string>
+    <string name="error_not_found">error_not_found</string>
+    <string name="error_no_network">error_no_network</string>
+    <string name="error_no_content">error_no_content</string>
+
+    <string name="no_data_found">No Data found</string>
+
+</resources>
